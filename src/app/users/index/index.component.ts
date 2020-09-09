@@ -24,6 +24,9 @@ export class IndexComponent implements OnInit{
       .subscribe(data => this.users = data);
   }
   onDelete(id): void {
+    if (!confirm('Are you sure about that?')){
+      return;
+    }
     this.userService.delete(id).subscribe(() => {
       this.ngOnInit();
     });

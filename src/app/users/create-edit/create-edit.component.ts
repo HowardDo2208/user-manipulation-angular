@@ -7,11 +7,11 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {IUser} from '../../users';
 
 @Component({
-  selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css']
+  selector: 'app-create-edit',
+  templateUrl: './create-edit.component.html',
+  styleUrls: ['./create-edit.component.css']
 })
-export class CreateComponent implements OnInit {
+export class CreateEditComponent implements OnInit {
   isCreate = this.route.snapshot.url.join() === 'create';
   user: IUser;
   createForm: FormGroup;
@@ -37,8 +37,6 @@ export class CreateComponent implements OnInit {
         this.createForm.patchValue({
           name: this.user.name,
           email: this.user.email,
-          password: this.user.password,
-          confirmPassword: this.user.password,
           geoRegionId: this.user.geoRegionId,
           geoDistrictId: this.user.geoDistrictId,
           geoTownShipId: this.user.geoTownShipId,
@@ -46,12 +44,12 @@ export class CreateComponent implements OnInit {
         });
       });
     }
-    // create reactive form
+    // create-edit reactive form
     this.createForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', Validators.required],
+      password: ['', [Validators.minLength(8), this.isCreate ? Validators.required : Validators.nullValidator]],
+      confirmPassword: ['', this.isCreate ? Validators.required : Validators.nullValidator],
       geoRegionId: ['', Validators.required],
       geoDistrictId: ['', Validators.required],
       geoTownShipId: ['', Validators.required],

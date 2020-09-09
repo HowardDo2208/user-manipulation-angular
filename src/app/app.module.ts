@@ -6,14 +6,14 @@ import { AppComponent } from './app.component';
 import { IndexComponent } from './users/index/index.component';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { CreateComponent } from './users/create/create.component';
+import { CreateEditComponent } from './users/create-edit/create-edit.component';
 import { ChartComponent } from './users/chart/chart.component';
 import {RouterModule, Route, Routes} from '@angular/router';
 
 const appRoutes: Routes = [
   { path: '', component: IndexComponent},
-  { path: 'create', component: CreateComponent},
-  { path: 'edit/:id', component: CreateComponent},
+  { path: 'create', component: CreateEditComponent},
+  { path: 'edit/:id', component: CreateEditComponent},
   { path: 'chart', component: ChartComponent},
 ];
 
@@ -21,7 +21,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     IndexComponent,
-    CreateComponent,
+    CreateEditComponent,
     ChartComponent
   ],
   imports: [
