@@ -16,7 +16,6 @@
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="">
-<!--        aria-label={{ __('Toggle navigation') }}-->
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -30,24 +29,17 @@
         <ul class="navbar-nav ml-auto">
           <!-- Authentication Links -->
           <li class="nav-item">
-<!--            Route to login-->
             <a class="nav-link" href="#">Login</a>
           </li>
-<!--          @if (Route::has('register'))-->
           <li class="nav-item">
-<!--            Route to register-->
             <a class="nav-link" href="#">Register</a>
           </li>
-<!--          @endif-->
-<!--          @else-->
           <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
               Hop Do Tan <span class="caret"></span>
-<!--              Display Auth::user()->name-->
             </a>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-<!--              href = route('logout')-->
               <a class="dropdown-item" href="#"
                  onclick="event.preventDefault();
                  document.getElementById('logout-form').submit();">
@@ -55,7 +47,6 @@
               </a>
 
               <form id="logout-form" action="#" method="POST" style="display: none;">
-<!--                action = logout-->
               </form>
             </div>
           </li>
