@@ -7,8 +7,8 @@ import { IndexComponent } from './users/index/index.component';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CreateEditComponent } from './users/create-edit/create-edit.component';
-import { ChartComponent } from './users/chart/chart.component';
 import {RouterModule, Route, Routes} from '@angular/router';
+import { ChartComponent } from './chart/chart.component';
 
 const appRoutes: Routes = [
   { path: '', component: IndexComponent},
@@ -22,7 +22,7 @@ const appRoutes: Routes = [
     AppComponent,
     IndexComponent,
     CreateEditComponent,
-    ChartComponent
+    ChartComponent,
   ],
   imports: [
     BrowserModule,

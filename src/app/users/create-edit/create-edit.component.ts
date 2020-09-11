@@ -5,6 +5,7 @@ import {GeoDataService} from '../../geo-data.service';
 import {UserService} from '../../user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {IUser} from '../../users';
+import {throwError} from 'rxjs';
 
 @Component({
   selector: 'app-create-edit',
@@ -26,25 +27,11 @@ export class CreateEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.geoDataService.getRegions().subscribe(data => this.regions = data);
-    // fill in the data when access the Edit form
+    // FILL IN DATA WHEN IT IS A EDIT FORM
     if (!this.isCreate) {
-      const userId = this.route.snapshot.url[1].path;
-      this.userService.getUser(userId).subscribe(data => {
-        this.user = data;
-        this.onChangeRegion(this.user.geoRegionId);
-        this.onChangeDistrict(this.user.geoDistrictId);
-        this.onChangeTownShip(this.user.geoTownShipId);
-        this.createForm.patchValue({
-          name: this.user.name,
-          email: this.user.email,
-          geoRegionId: this.user.geoRegionId,
-          geoDistrictId: this.user.geoDistrictId,
-          geoTownShipId: this.user.geoTownShipId,
-          geoTownId: this.user.geoTownId
-        });
-      });
+      this.fillInData();
     }
-    // create-edit reactive form
+    // create the create-edit reactive form
     this.createForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -58,7 +45,27 @@ export class CreateEditComponent implements OnInit {
       validators: MustMatch('password', 'confirmPassword')
     });
   }
-  // getter for easy access to form fields
+
+  // tslint:disable-next-line:typedef
+  private fillInData() {
+    const userId = this.route.snapshot.url[1].path;
+    this.userService.getUser(userId).subscribe(data => {
+      this.user = data;
+      this.onChangeRegion(this.user.geoRegionId);
+      this.onChangeDistrict(this.user.geoDistrictId);
+      this.onChangeTownShip(this.user.geoTownShipId);
+      this.createForm.patchValue({
+        name: this.user.name,
+        email: this.user.email,
+        geoRegionId: this.user.geoRegionId,
+        geoDistrictId: this.user.geoDistrictId,
+        geoTownShipId: this.user.geoTownShipId,
+        geoTownId: this.user.geoTownId
+      });
+    });
+  }
+
+// getter for easy access to form fields
   get f(): any { return this.createForm.controls; }
   onSubmit(): void {
     this.submitted = true;
@@ -66,6 +73,7 @@ export class CreateEditComponent implements OnInit {
     if (this.createForm.invalid) {
       return;
     }
+    // get form data to submit
     const data = {
       name: this.f.name.value,
       email: this.f.email.value,
@@ -82,7 +90,7 @@ export class CreateEditComponent implements OnInit {
         this.router.navigate(['/']);
       });
     } else {
-      this.userService.update(data, this.user.id).subscribe(() => {
+      this.userService.update(data, this.user.id).subscribe( () => {
         this.router.navigate(['/']);
       });
     }

@@ -11,21 +11,18 @@
     <div class="form-group row">
       <label for="email-search" class="col-md-0 col-form-label text-md-right">Email</label>
       <div class="col-md-6">
-        <input id="email-search" type="text" class="form-control" name="email"
-               value="" ngModel>
-      </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Search</button>
-  </form>
-  <hr>
-<!-- fetch email and name search-->
-  <a href="/users/export?email=&name=">
-    <button class="btn btn-primary">Export</button>
-  </a>
-  <a routerLink="/chart">
-    <button class="btn btn-primary">Distribution chart</button>
-  </a>
-<!--  session message success-->
+      <input id="email-search" type="text" class="form-control" name="email"
+             value="" ngModel>
+</div>
+</div>
+<button type="submit" class="btn btn-primary">Search</button>
+</form>
+<hr>
+
+  <button class="btn btn-primary mr-2" (click)="onExport()">Export</button>
+<a routerLink="/chart">
+  <button class="btn btn-primary">Distribution chart</button>
+</a>
   <table class="table">
     <thead>
     <tr>
@@ -35,25 +32,18 @@
     </tr>
     </thead>
     <tbody>
-<!--    foreach here!-->
     <tr *ngFor="let user of users | paginate: { itemsPerPage: 10, currentPage: p }; index as i">
       <th scope="col">{{user.id}}</th>
       <th scope="col">{{user.name}}</th>
       <th scope="col">{{user.email}}</th>
       <th scope="col">
-<!--        routing to users/userID-->
         <a [routerLink]="['/edit',user.id]">
-          <button type="button" class="btn btn-info">Edit</button>
+          <button type="button" class="btn btn-info mr-2">Edit</button>
         </a>
-<!--        route: users/delete/userID-->
-        <button type="button" class="btn btn-danger" (click)="onDelete(user.id)">Delete</button>
-<!--        route with email=userEmail and name = username-->
-        <a href="/users/email?email=&name=">
-          <button type="button" class="btn btn-secondary">Email</button>
-        </a>
+        <button type="button" class="btn btn-danger mr-2" (click)="onDelete(user.id)">Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="onEmail(user.email, user.name)">Email</button>
       </th>
     </tr>
-<!--   end foreach-->
     </tbody>
   </table>
   <div class="justify-content-end">

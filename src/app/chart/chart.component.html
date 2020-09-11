@@ -1,9 +1,11 @@
-
 <div class="container">
+  <script>
+    google.charts.load('current', {packages: ['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+  </script>
   <a routerLink="/">
     <button class="btn btn-primary">Back to users index</button>
   </a>
   <div id="chart_div">
-
   </div>
 </div>
